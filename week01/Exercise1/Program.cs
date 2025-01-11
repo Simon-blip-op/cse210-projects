@@ -1,61 +1,48 @@
 using System;
-using System.Collections.Generic;
 
 class Program
 {
     static void Main(string[] args)
     {
-        List<int> numbers = new List<int>();
-        
-        // Please note we could use a do-while loop here instead
-        int userNumber = -1;
-        while (userNumber != 0)
-        {
-            Console.Write("Enter a number (0 to quit): ");
-            
-            string userResponse = Console.ReadLine();
-            userNumber = int.Parse(userResponse);
-            
-            // Only add the number to the list if it is not 0
-            if (userNumber != 0)
-            {
-                numbers.Add(userNumber);
-            }
-        }
+        DisplayWelcomeMessage();
 
-        // Part 1: Compute the sum
-        int sum = 0;
-        foreach (int number in numbers)
-        {
-            sum += number;
-        }
+        string userName = PromptUserName();
+        int userNumber = PromptUserNumber();
 
-        Console.WriteLine($"The sum is: {sum}");
+        int squaredNumber = SquareNumber(userNumber);
 
-        // Part 2: Compute the average
-        // Notice that we first cast the sum variable to be a float. Otherwise, because
-        // both the sum and the count are integers, the computer will do integer division
-        // and I will not get a decimal value (even though it puts the result into a float variable).
+        DisplayResult(userName, squaredNumber);
+    }
 
-        // By making one of the variables a float first, the computer knows that it has to
-        // do the floating point division, and we get the decimal value that we expect.
-        float average = ((float)sum) / numbers.Count;
-        Console.WriteLine($"The average is: {average}");
+    static void DisplayWelcomeMessage()
+    {
+        Console.WriteLine("Welcome to the program!");
+    }
 
-        // Part 3: Find the max
-        // There are several ways to do this, such as sorting the list
-        
-        int max = numbers[0];
+    static string PromptUserName()
+    {
+        Console.Write("Please enter your name: ");
+        string name = Console.ReadLine();
 
-        foreach (int number in numbers)
-        {
-            if (number > max)
-            {
-                // if this number is greater than the max, we have found the new max!
-                max = number;
-            }
-        }
+        return name;
+    }
 
-        Console.WriteLine($"The max is: {max}");
+    static int PromptUserNumber()
+    {
+        Console.Write("Please enter your favorite number: ");
+        int number = int.Parse(Console.ReadLine());
+
+        return number;
+    }
+
+    static int SquareNumber(int number)
+    {
+        int square = number * number;
+        return square;
+    }
+
+    static void DisplayResult(string name, int square)
+    {
+        Console.WriteLine($"{name}, the square of your number is {square}");
     }
 }
